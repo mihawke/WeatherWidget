@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styles from './MainPage.module.css';
-import Header from '../Header/Header';
 import { BsGeoAlt } from 'react-icons/bs';
 import { FaWind } from "react-icons/fa";
 import { FaDroplet } from "react-icons/fa6";
@@ -110,9 +109,41 @@ const MainPage = ({ handleLocation, data }) => {
     setTemperature(lis)
     setUnit('°F')
   }
+
+  const [searchVisible, setSearchVisible] = useState(false); // State to track header visibility
+
+  const handleButtonClick = () => {
+    setSearchVisible(true); // Toggle header visibility
+  };
+
+  function Search({ handleLocation }) {
+    const [location, setLocation] = useState('')
+    const handleInput = (e) => {
+      setLocation(e.target.value)
+    }
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      handleLocation(location)
+      setLocation('')
+      setSearchVisible(!searchVisible); // Toggle header visibility
+    }
+    return (
+      <div>
+        <form className={styles.search} onSubmit={handleSubmit}>
+          <input
+            className={styles.searchInput}
+            type='text'
+            value={location}
+            placeholder='Delhi'
+            onChange={handleInput}
+          ></input>
+        </form>
+      </div>
+    )
+  }
+
   return (
     <>
-      <Header handleLocation={handleLocation}></Header>
       <div className={styles.container}>
         <div className={styles.frame1}>
           <p className={styles.day}>{currentDay()}</p>
@@ -134,34 +165,41 @@ const MainPage = ({ handleLocation, data }) => {
             ></input>
             <label htmlFor='F'>F</label>
           </div> */}
-            <p className={styles.tempText}>{temperature[0]}<span style={{ position: 'relative', top: -30,left:-10, fontSize: '5rem', fontWeight: 200 }}>°</span>
+            <p className={styles.tempText}>{temperature[0]}<span style={{ position: 'relative', top: -30, left: -10, fontSize: '5rem', fontWeight: 200 }}>°</span>
               {/* {unit} */}
             </p>
           </div>
-          <div>
-            <BsGeoAlt style={{marginRight:5}} size={18}/> {data.name}
-            , {data.sys?.country || ''}
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <button onClick={handleButtonClick}
+              style={{ border: 'none', outline: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', backgroundColor: 'transparent', color: '#FFFFFF' }}>
+              <BsGeoAlt style={{ marginRight: 5 }} size={18} />
+            </button>
+            <div>
+              {searchVisible && <Search handleLocation={handleLocation}></Search>}
+
+              {!searchVisible && <>{data.name} , {data.sys?.country || ''}</>}
+            </div>
           </div>
         </div>
         <div className={styles.frame2}>
           <div>
             <div style={{ display: 'flex', flexDirection: 'row', columnGap: '1rem', alignItems: 'center' }}>
-              <FaWind size={22}/>
-              <p style={{fontSize:18}}>{data.wind?.speed || '0'} m/s</p>
+              <FaWind size={22} />
+              <p style={{ fontSize: 18 }}>{data.wind?.speed || '0'} m/s</p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row', columnGap: '1rem', alignItems: 'center' }}>
-              <FaDroplet size={22}/>
-              <p style={{fontSize:18}}>{data.main?.humidity || ''}%</p>
+              <FaDroplet size={22} />
+              <p style={{ fontSize: 18 }}>{data.main?.humidity || ''}%</p>
             </div>
           </div>
           <div>
             <div style={{ display: 'flex', flexDirection: 'row', columnGap: '1rem', alignItems: 'center' }}>
-              <p style={{fontSize:'1rem'}}>H</p>
-              <p style={{fontSize:'1rem'}}>{temperature[1]}°</p>
+              <p style={{ fontSize: '1rem' }}>H</p>
+              <p style={{ fontSize: '1rem' }}>{temperature[1]}°</p>
             </div>
             <div style={{ display: 'flex', flexDirection: 'row', columnGap: '1rem', alignItems: 'center' }}>
-              <p style={{fontSize:'1rem'}}>L</p>
-              <p style={{fontSize:'1rem'}}>{temperature[2]}°</p>
+              <p style={{ fontSize: '1rem' }}>L</p>
+              <p style={{ fontSize: '1rem' }}>{temperature[2]}°</p>
             </div>
           </div>
         </div>
@@ -169,7 +207,7 @@ const MainPage = ({ handleLocation, data }) => {
           {data.main &&
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               {getIcon()}
-              <p style={{fontSize:14 , fontWeight:500,opacity:0.5}}>{data.weather[0]?.main}</p>
+              <p style={{ fontSize: 14, fontWeight: 500, opacity: 0.5 }}>{data.weather[0]?.main}</p>
             </div>}
         </div>
       </div>

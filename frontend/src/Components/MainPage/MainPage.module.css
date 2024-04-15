@@ -39,3 +39,30 @@ padding-right: 0.3rem;
 .frame3{
   margin-left: 3rem;
 }
+
+.search {
+  border-radius: 0.2rem;
+  /* max-width: 2rem; */
+  background-color: transparent;
+  border: 1px solid gray;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0px 10px 0px 10px;
+  padding: 0;
+  margin: 0;
+}
+
+.searchInput {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  font-size: 0.8rem;
+  color: silver;
+  font-size: 0.9rem;
+  padding: 0;
+  margin: 0;
+  width: 5rem;
+  padding: 2px 5px 2px 5px;
+}

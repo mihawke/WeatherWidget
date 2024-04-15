@@ -16,7 +16,6 @@ function Header({handleLocation}) {
     }
     return (
         <div className='header'>
-            <div className='title'>Weather App</div>
             <form className="search" onSubmit={handleSubmit}>
                 <input
                     className='search-input'
@@ -25,11 +24,6 @@ function Header({handleLocation}) {
                     placeholder='Search Location...'
                     onChange={handleInput}
                 ></input>
-                <button
-                    className='search-button'
-                    type='submit'>
-                    Get Weather
-                </button>
             </form>
         </div>
     )
