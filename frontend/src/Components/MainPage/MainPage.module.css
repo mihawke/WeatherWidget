@@ -1,0 +1,41 @@
+.container {
+  /* width: 30rem; */
+  box-sizing: border-box;
+  padding: 20px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  backdrop-filter: blur(20px); /* Apply blur effect */
+}
+
+.frame1{
+padding-right: 0.3rem;
+}
+
+.frame1 .day{
+  font-size: 1rem;
+  line-height: 125%;
+  font-weight: bolder;
+}
+
+.frame1 .tempContainer .tempText{
+  font-size: 6rem;
+  line-height: 125%;
+  font-weight: 700;
+}
+
+.frame1 .location{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.frame2{
+  display: flex;
+  flex-direction: column;
+  row-gap: 4rem;
+}
+.frame3{
+  margin-left: 3rem;
+}
